@@ -29,6 +29,11 @@ class Don
      */
     private $montant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="don")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +59,18 @@ class Don
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

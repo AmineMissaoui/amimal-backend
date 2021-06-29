@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -35,6 +37,41 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=don::class, mappedBy="user")
+     */
+    private $don;
+
+    public function __construct()
+    {
+        $this->don = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -115,5 +152,107 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getDateIntegration(): ?\DateTimeInterface
+    {
+        return $this->dateIntegration;
+    }
+
+    public function setDateIntegration(\DateTimeInterface $dateIntegration): self
+    {
+        $this->dateIntegration = $dateIntegration;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|don[]
+     */
+    public function getDon(): Collection
+    {
+        return $this->don;
+    }
+
+    public function addDon(don $don): self
+    {
+        if (!$this->don->contains($don)) {
+            $this->don[] = $don;
+            $don->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDon(don $don): self
+    {
+        if ($this->don->removeElement($don)) {
+            // set the owning side to null (unless already changed)
+            if ($don->getUser() === $this) {
+                $don->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
