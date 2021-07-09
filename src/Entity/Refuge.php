@@ -22,12 +22,12 @@ class Refuge
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $adresse;
+    private $ville;
 
     /**
      * @ORM\Column(type="float")
@@ -52,38 +52,34 @@ class Refuge
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private $pays;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $contactPrincipale;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->nom;
     }
 
-    public function setName(string $name): self
+    public function setNom(string $nom): self
     {
-        $this->name = $name;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getVille(): ?string
     {
-        return $this->adresse;
+        return $this->ville;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setVille(string $ville): self
     {
-        $this->adresse = $adresse;
+        $this->ville = $ville;
 
         return $this;
     }
@@ -136,27 +132,16 @@ class Refuge
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPays(): ?string
     {
-        return $this->description;
+        return $this->pays;
     }
 
-    public function setDescription(string $description): self
+    public function setPays(string $pays): self
     {
-        $this->description = $description;
+        $this->pays = $pays;
 
         return $this;
     }
 
-    public function getContactPrincipale(): ?string
-    {
-        return $this->contactPrincipale;
-    }
-
-    public function setContactPrincipale(string $contactPrincipale): self
-    {
-        $this->contactPrincipale = $contactPrincipale;
-
-        return $this;
-    }
 }
