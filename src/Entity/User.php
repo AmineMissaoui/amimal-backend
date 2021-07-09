@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -55,6 +57,16 @@ class User implements UserInterface
      * @ORM\Column(type="text")
      */
     private $adresse;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Don::class, mappedBy="user")
+     */
+    private $don;
+
+    public function __construct()
+    {
+        $this->don = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -181,6 +193,36 @@ class User implements UserInterface
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Don[]
+     */
+    public function getDon(): Collection
+    {
+        return $this->don;
+    }
+
+    public function addDon(Don $don): self
+    {
+        if (!$this->don->contains($don)) {
+            $this->don[] = $don;
+            $don->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDon(Don $don): self
+    {
+        if ($this->don->removeElement($don)) {
+            // set the owning side to null (unless already changed)
+            if ($don->getUser() === $this) {
+                $don->setUser(null);
+            }
+        }
 
         return $this;
     }
