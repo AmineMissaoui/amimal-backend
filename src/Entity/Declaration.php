@@ -39,6 +39,21 @@ class Declaration
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $titre;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $gouvernorat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +103,44 @@ class Declaration
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getGouvernorat(): ?string
+    {
+        return $this->gouvernorat;
+    }
+
+    public function setGouvernorat(string $gouvernorat): self
+    {
+        $this->gouvernorat = $gouvernorat;
 
         return $this;
     }
