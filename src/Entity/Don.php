@@ -5,10 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(formats={"json"})
  * @ORM\Entity(repositoryClass=DonRepository::class)
+ * @ApiFilter(SearchFilter::class,properties={"user":"exact"})
  */
 class Don
 {
@@ -28,6 +31,16 @@ class Don
      * @ORM\Column(type="float")
      */
     private $montant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="don")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
     public function getId(): ?int
     {
@@ -54,6 +67,30 @@ class Don
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
