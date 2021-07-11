@@ -8,9 +8,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(formats={"json"},
+ *      itemOperations={
+ *          "GET"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "POST",
+ *          "DELETE"={"access_control"="is_granted('ROLE_ADMIN')"}
+ *      }
+ *      ,collectionOperations={"GET","POST"})
+ * @ApiFilter(SearchFilter::class,properties={"email":"exact"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface
