@@ -9,7 +9,13 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource(formats={"json"})
+ * @ApiResource(formats={"json"},
+ *      itemOperations={
+ *          "GET"={"access_control"="is_granted('ROLE_TRESORIER')"},
+ *          "POST",
+ *          "DELETE"={"access_control"="is_granted('ROLE_TRESORIER')"}
+ *      }
+ *      ,collectionOperations={"GET","POST"})
  * @ORM\Entity(repositoryClass=DonRepository::class)
  * @ApiFilter(SearchFilter::class,properties={"user":"exact"})
  */

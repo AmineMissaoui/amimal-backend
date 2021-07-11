@@ -12,7 +12,13 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource(formats={"json"},itemOperations={"GET"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"},"POST","DELETE"},collectionOperations={"GET","POST"})
+ * @ApiResource(formats={"json"},
+ *      itemOperations={
+ *          "GET"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "POST",
+ *          "DELETE"={"access_control"="is_granted('ROLE_ADMIN')"}
+ *      }
+ *      ,collectionOperations={"GET","POST"})
  * @ApiFilter(SearchFilter::class,properties={"email":"exact"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
