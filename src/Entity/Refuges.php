@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\RefugesRepository;
+use App\Repository\RefugeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass=RefugesRepository::class)
- * @ApiFilter(SearchFilter::class, properties={"ville": "partial","pays": "partial"})
+ * @ORM\Entity(repositoryClass=RefugeRepository::class)
+ * @ApiFilter(SearchFilter::class, properties={"ville": "partial","pays": "partial","nbreLike": "exact"})
  */
 class Refuges
 {
@@ -37,7 +37,7 @@ class Refuges
     private $telephone;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=3, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $latitude;
 
@@ -45,6 +45,11 @@ class Refuges
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbreLike;
 
     public function getId(): ?int
     {
@@ -107,6 +112,18 @@ class Refuges
     public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getNbreLike(): ?int
+    {
+        return $this->nbreLike;
+    }
+
+    public function setNbreLike(?int $nbreLike): self
+    {
+        $this->nbreLike = $nbreLike;
 
         return $this;
     }

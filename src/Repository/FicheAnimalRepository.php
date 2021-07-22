@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Refuges;
+use App\Entity\FicheAnimal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,11 +12,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Refuge[]    findAll()
  * @method Refuge[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RefugeRepository extends ServiceEntityRepository
+class FicheAnimalRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Refuges::class);
+        parent::__construct($registry, FicheAnimal::class);
     }
 
     // /**
