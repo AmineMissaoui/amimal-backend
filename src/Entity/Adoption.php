@@ -20,41 +20,43 @@ class Adoption
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $user;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity=FicheAnimal::class, cascade={"persist", "remove"})
      */
     private $animal;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?int $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getAnimal(): ?int
+    public function getAnimal(): ?FicheAnimal
     {
         return $this->animal;
     }
 
-    public function setAnimal(?int $animal): self
+    public function setAnimal(?FicheAnimal $animal): self
     {
         $this->animal = $animal;
 
         return $this;
     }
+
 }

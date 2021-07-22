@@ -13,7 +13,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=FicheAnimalRepository::class)
- * @ApiFilter(SearchFilter::class, properties={"etat": "partial","espece": "partial","race":"partial","age","partial"})
+ * @ApiFilter(SearchFilter::class, properties={"etat": "exact","espece": "partial","race":"partial","age","partial","refuge": "exact"})
  */
 class FicheAnimal
 {
@@ -60,9 +60,14 @@ class FicheAnimal
     private $sexe;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $nbreLike;
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Refuges::class)
+     */
+    private $refuge;
 
 
 
@@ -155,14 +160,26 @@ class FicheAnimal
         return $this;
     }
 
-    public function getNbreLike(): ?int
+    public function getImage(): ?string
     {
-        return $this->nbreLike;
+        return $this->image;
     }
 
-    public function setNbreLike(?int $nbreLike): self
+    public function setImage(?string $image): self
     {
-        $this->nbreLike = $nbreLike;
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getRefuge(): ?Refuges
+    {
+        return $this->refuge;
+    }
+
+    public function setRefuge(?Refuges $refuge): self
+    {
+        $this->refuge = $refuge;
 
         return $this;
     }
