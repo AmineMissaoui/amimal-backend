@@ -29,6 +29,26 @@ class Intervention
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="interventions")
+     */
+    private $fk_user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Declaration::class, inversedBy="interventions")
+     */
+    private $fk_declaration;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +74,54 @@ class Intervention
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getFkUser(): ?User
+    {
+        return $this->fk_user;
+    }
+
+    public function setFkUser(?User $fk_user): self
+    {
+        $this->fk_user = $fk_user;
+
+        return $this;
+    }
+
+    public function getFkDeclaration(): ?Declaration
+    {
+        return $this->fk_declaration;
+    }
+
+    public function setFkDeclaration(?Declaration $fk_declaration): self
+    {
+        $this->fk_declaration = $fk_declaration;
 
         return $this;
     }

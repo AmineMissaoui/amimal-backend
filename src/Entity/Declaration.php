@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DeclarationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,6 +55,21 @@ class Declaration
      * @ORM\Column(type="string", length=40)
      */
     private $gouvernorat;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Intervention::class, mappedBy="fk_declaration")
+     */
+    private $interventions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="declarations")
+     */
+    private $fk_user;
+
+    public function __construct()
+    {
+        $this->interventions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,6 +158,48 @@ class Declaration
     public function setGouvernorat(string $gouvernorat): self
     {
         $this->gouvernorat = $gouvernorat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Intervention[]
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Intervention $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions[] = $intervention;
+            $intervention->setFkDeclaration($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Intervention $intervention): self
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getFkDeclaration() === $this) {
+                $intervention->setFkDeclaration(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFkUser(): ?User
+    {
+        return $this->fk_user;
+    }
+
+    public function setFkUser(?User $fk_user): self
+    {
+        $this->fk_user = $fk_user;
 
         return $this;
     }
