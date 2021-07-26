@@ -5,10 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdoptionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=AdoptionRepository::class)
+ * @ApiFilter(SearchFilter::class, properties={"animal": "exact","user": "exact"})
  */
 class Adoption
 {
