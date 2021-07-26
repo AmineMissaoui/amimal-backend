@@ -108,6 +108,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsofsymfony/rest-bundle": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "fa845143b7e0a4c70aedd1a88c549e6d977e9ae5"
+        },
+        "files": [
+            "./config/packages/fos_rest.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
@@ -253,6 +265,9 @@
             "./.env"
         ]
     },
+    "symfony/form": {
+        "version": "v4.4.26"
+    },
     "symfony/framework-bundle": {
         "version": "4.4",
         "recipe": {
@@ -286,6 +301,9 @@
     "symfony/inflector": {
         "version": "v4.4.25"
     },
+    "symfony/intl": {
+        "version": "v4.4.25"
+    },
     "symfony/mailer": {
         "version": "4.3",
         "recipe": {
@@ -310,8 +328,14 @@
     "symfony/mime": {
         "version": "v4.4.25"
     },
+    "symfony/options-resolver": {
+        "version": "v4.4.25"
+    },
     "symfony/orm-pack": {
         "version": "v2.1.0"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
@@ -450,11 +474,17 @@
     "symfony/yaml": {
         "version": "v4.4.25"
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.5.0"
+    },
     "twig/twig": {
         "version": "v3.3.2"
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "willdurand/jsonp-callback-validator": {
+        "version": "v1.1.0"
     },
     "willdurand/negotiation": {
         "version": "3.0.0"
