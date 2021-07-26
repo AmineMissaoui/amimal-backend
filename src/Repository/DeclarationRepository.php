@@ -18,7 +18,7 @@ class DeclarationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Declaration::class);
     }
-     
+
     // /**
     //  * @return Declaration[] Returns an array of Declaration objects
     //  */
