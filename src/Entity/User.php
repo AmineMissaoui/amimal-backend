@@ -72,9 +72,21 @@ class User implements UserInterface
      */
     private $don;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Intervention::class, mappedBy="fk_user")
+     */
+    private $interventions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Declaration::class, mappedBy="fk_user")
+     */
+    private $declarations;
+
     public function __construct()
     {
         $this->don = new ArrayCollection();
+        $this->interventions = new ArrayCollection();
+        $this->declarations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,6 +242,66 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($don->getUser() === $this) {
                 $don->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Intervention[]
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Intervention $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions[] = $intervention;
+            $intervention->setFkUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Intervention $intervention): self
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getFkUser() === $this) {
+                $intervention->setFkUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Declaration[]
+     */
+    public function getDeclarations(): Collection
+    {
+        return $this->declarations;
+    }
+
+    public function addDeclaration(Declaration $declaration): self
+    {
+        if (!$this->declarations->contains($declaration)) {
+            $this->declarations[] = $declaration;
+            $declaration->setFkUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeclaration(Declaration $declaration): self
+    {
+        if ($this->declarations->removeElement($declaration)) {
+            // set the owning side to null (unless already changed)
+            if ($declaration->getFkUser() === $this) {
+                $declaration->setFkUser(null);
             }
         }
 
