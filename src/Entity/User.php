@@ -16,8 +16,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiResource(formats={"json"},
  *      itemOperations={
  *          "GET"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"},
- *          "POST",
- *          "DELETE"={"access_control"="is_granted('ROLE_ADMIN')"}
+ *          "POST"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "DELETE"={"access_control"="is_granted('ROLE_ADMIN')"},
+ *          "PUT"={"access_control"="is_granted('IS_AUTHENTICATED_FULLY')"}
  *      }
  *      ,collectionOperations={"GET","POST"})
  * @ApiFilter(SearchFilter::class,properties={"email":"exact"})
@@ -271,6 +272,6 @@ class User implements UserInterface
 
         return $this;
     }
-    
+
 
 }
